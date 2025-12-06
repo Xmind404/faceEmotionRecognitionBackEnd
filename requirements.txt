@@ -1,0 +1,6 @@
+fastapi         # framework for building APIs
+uvicorn         # ASGI server for running FastAPI applications
+torch           # deep learning framework
+torchvision     # computer vision library for PyTorch
+pillow          # image processing library
+numpy           # numerical computing library
