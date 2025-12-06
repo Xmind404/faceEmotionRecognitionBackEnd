@@ -11,19 +11,22 @@ router = APIRouter()
 
 
 # Endpoint definition
-@router.post('/')
-async def root():
+@router.get("/")
+async def api_home():
     return {"message": "Hello Face Emotion Recognition API!"}
 
-@router.post('/predict_emotion/')
-async def predict_emotion_api(file: UploadFile = File(...)):
-    # Save the uploaded file to a temporary location
+
+@router.post("/predict_emotion/")
+async def predict(file: UploadFile = File(...)):
+    # Create temp directory if not exists
     os.makedirs("temp", exist_ok=True)
-    temp_file = f"temp/{file.filename}"
-    with open(temp_file, "wb") as buffer:
+
+    # Save uploaded file to temp folder
+    temp_path = f"temp/{file.filename}"
+    with open(temp_path, "wb") as buffer:
         buffer.write(await file.read())
 
     # Predict emotion using the utility function
-    emotion = predict_emotion(temp_file)
+    emotion = predict_emotion(temp_path)
 
     return JSONResponse(content={"predicted_emotion": emotion})
