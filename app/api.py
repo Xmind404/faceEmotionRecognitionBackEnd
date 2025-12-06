@@ -29,4 +29,7 @@ async def predict(file: UploadFile = File(...)):
     # Predict emotion using the utility function
     emotion = predict_emotion(temp_path)
 
+    # Remove the temporary file
+    os.remove(temp_path)
+
     return JSONResponse(content={"predicted_emotion": emotion})
